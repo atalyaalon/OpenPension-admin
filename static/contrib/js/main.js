@@ -15,6 +15,7 @@ var Model = function() {
     self.quarterId = ko.observable(-1);
     self.managingBody = ko.observable("");
     self.fund = ko.observable("");
+    self.fund_id = ko.observable(0);
     self.fundUrl = ko.observable("");
     self.quarter = ko.observable("");
 
@@ -22,11 +23,12 @@ var Model = function() {
 
     self.getNext= function() {
         self.url("");
-        $.getJSON(baseUrl + "funds_quarters/missing/random", function(data) {
+        $.getJSON(baseUrl + "funds_quarters/missing/random?managing_body_heb=" + self.managingBody() + "&fund_id=" + self.fund_id(), function(data) {
             console.log(data);
             self.quarterId(data.id);
             self.managingBody(data.managing_body_heb);
             self.fund(data.fund_name);
+            self.fund_id(data.fund_id);
             self.fundUrl(data.fund_url);
             self.quarter(quarter2String[data.quarter] + " " + data.year);
         });
