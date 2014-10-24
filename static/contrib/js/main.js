@@ -1,4 +1,4 @@
-var baseUrl = "http://admin.openpension.org.il/";
+var baseUrl = "http://admin.openpension.org.il/api/";
 
 var quarter2String = {
     0: "ראשון",
