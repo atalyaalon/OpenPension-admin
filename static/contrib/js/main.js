@@ -15,6 +15,7 @@ var Model = function() {
     self.quarterId = ko.observable(-1);
     self.managingBody = ko.observable("");
     self.fund = ko.observable("");
+    self.fundUrl = ko.observable("");
     self.quarter = ko.observable("");
 
     self.url = ko.observable("");
@@ -26,6 +27,7 @@ var Model = function() {
             self.quarterId(data.id);
             self.managingBody(data.managing_body_heb);
             self.fund(data.fund_name);
+            self.fundUrl(data.fund_url);
             self.quarter(quarter2String[data.quarter] + " " + data.year);
         });
     };

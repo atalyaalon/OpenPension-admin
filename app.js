@@ -72,7 +72,7 @@ app.route("/funds_quarters/missing/random")
     .get(function(req, res) {
 
         db.connect(function(client, done) {
-            client.query("SELECT q.id, q.year, q. quarter, f.managing_body_heb, f.name as fund_name FROM admin_funds_quarters as q, admin_funds as f WHERE status = 'missing' and q.fund_id = f.id OFFSET random()*((SELECT COUNT(*) FROM admin_funds_quarters)-1) LIMIT 1", function(err, result) {
+            client.query("SELECT q.id, q.year, q. quarter, f.managing_body_heb, f.name as fund_name, f.url as fund_url FROM admin_funds_quarters as q, admin_funds as f WHERE status = 'missing' and q.fund_id = f.id OFFSET random()*((SELECT COUNT(*) FROM admin_funds_quarters)-1) LIMIT 1", function(err, result) {
                 done();
 
                 if(err) {

@@ -38,12 +38,14 @@
                   <p class="form-control-static input-lg" data-bind="text: managingBody">הראל גמל ופנסיה</p>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-xs-2 control-label">קרן/קופה</label>
-                <div class="col-xs-10">
-                  <p class="form-control-static input-lg" data-bind="text: fund">הראל השתלמות שקלי</p>
-                </div>
-              </div>
+                <a data-bind="attr: { href: fundUrl() }" target="blank">
+                  <div class="form-group">
+                    <label class="col-xs-2 control-label">קרן/קופה</label>
+                    <div class="col-xs-10">
+                      <p class="form-control-static input-lg" data-bind="text: fund">הראל השתלמות שקלי</p>
+                    </div>
+                  </div>
+                </a>
               <div class="form-group">
                 <label class="col-xs-2 control-label">רבעון</label>
                 <div class="col-xs-10">
