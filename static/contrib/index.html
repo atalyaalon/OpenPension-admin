@@ -38,14 +38,18 @@
                   <p class="form-control-static input-lg" data-bind="text: managingBody">הראל גמל ופנסיה</p>
                 </div>
               </div>
-                <a data-bind="attr: { href: fundUrl() }" target="blank">
+                <!-- ko if: fundUrl() != "" -->
+                <a data-bind="attr: { href: fundUrl }" target="blank">
+                <!-- /ko -->
                   <div class="form-group">
                     <label class="col-xs-2 control-label">קרן/קופה</label>
                     <div class="col-xs-10">
                       <p class="form-control-static input-lg" data-bind="text: fund">הראל השתלמות שקלי</p>
                     </div>
                   </div>
+                <!-- ko if: fundUrl() != "" -->
                 </a>
+                <!-- /ko -->
               <div class="form-group">
                 <label class="col-xs-2 control-label">רבעון</label>
                 <div class="col-xs-10">
