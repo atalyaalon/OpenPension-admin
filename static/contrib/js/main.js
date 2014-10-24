@@ -1,4 +1,4 @@
-var baseUrl = "http://localhost:4000/";
+var baseUrl = "http://admin.openpension.org.il/";
 
 var quarter2String = {
     0: "ראשון",
