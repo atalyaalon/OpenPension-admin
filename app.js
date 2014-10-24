@@ -3,6 +3,11 @@ var express = require('express'),
     cors = require('cors');
 var app = express();
 
+function noCache(req, res, next) {
+  res.setHeader('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  next();
+}
+
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,7 +31,7 @@ app.route("/funds")
     });
 
 app.route("/funds_quarters")
-    .get(function(req, res) {
+    .get(noCache, function(req, res) {
 
         db.connect(function(client, done) {
             client.query('SELECT * FROM admin_funds_quarters', function(err, result) {
@@ -54,7 +59,7 @@ app.route("/funds_quarters")
     });
 
 app.route("/funds_quarters/missing")
-    .get(function(req, res) {
+    .get(noCache, function(req, res) {
 
         db.connect(function(client, done) {
             client.query("SELECT * FROM admin_funds_quarters WHERE status = 'missing'", function(err, result) {
@@ -69,10 +74,10 @@ app.route("/funds_quarters/missing")
     });
 
 app.route("/funds_quarters/missing/random")
-    .get(function(req, res) {
+    .get(noCache, function(req, res) {
 
         db.connect(function(client, done) {
-            client.query("SELECT q.id, q.year, q. quarter, f.managing_body_heb, f.name as fund_name, f.url as fund_url FROM admin_funds_quarters as q, admin_funds as f WHERE status = 'missing' and q.fund_id = f.id OFFSET random()*((SELECT COUNT(*) FROM admin_funds_quarters)-1) LIMIT 1", function(err, result) {
+            client.query("SELECT q.id, q.year, q. quarter, f.managing_body_heb, f.name as fund_name, f.url as fund_url FROM admin_funds_quarters as q, admin_funds as f WHERE status = 'missing' and q.fund_id = f.id OFFSET random()*((SELECT COUNT(*) FROM admin_funds_quarters WHERE status = 'missing')-1) LIMIT 1", function(err, result) {
                 done();
 
                 if(err) {
