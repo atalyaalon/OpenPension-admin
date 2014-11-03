@@ -7,9 +7,9 @@
   "dependencies": {
     "express": "4.x",
     "body-parser": "1.x",
-    "cors": "latest",
     "jade": "1.5.x",
     "pg": "latest",
-    "underscore": "latest"
+    "underscore": "latest",
+    "basic-auth": "latest"
   }
 }

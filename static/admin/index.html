@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title></title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link rel="stylesheet" href="css/bootstrap.css">
+      <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="css/bootstrap-rtl.css">
+      <link rel="icon" type="image/x-icon" href="/img/pension-logo.ico">
+      <link rel="stylesheet" href="css/font-awesome.css">
+      <link rel="stylesheet" href="css/main.css">
+
+      <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+
+      <script src="js/vendor/knockout-3.2.0.js"></script>
+      <script src="js/vendor/knockout.mapping-latest.debug.js"></script>
+    </head>
+    <body>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Quarter</th>
+                        <th>Managing Body</th>
+                        <th>Fund ID</th>
+                        <th>Fund Name</th>
+                        <th>Link</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: quarters">
+                    <tr>
+                        <td data-bind="text: year"></td>
+                        <td data-bind="text: quarter"></td>
+                        <td data-bind="text: managing_body_heb"></td>
+                        <td data-bind="text: fund_id"></td>
+                        <td data-bind="text: fund_name"></td>
+                        <td data-bind="if: url()"><a data-bind="attr: { href: url }">Link</a></td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" data-bind="click: $parent.removeQuarter">
+                                    <span class="glyphicon glyphicon-remove"></span><span class="sr-only">Remove</span>
+                                </button>
+                                <button type="button" class="btn btn-default" data-bind="click: $parent.approveQuarter">
+                                    <span class="glyphicon glyphicon-ok"></span><span class="sr-only">OK</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div> <!-- /container -->
+      <script src="js/vendor/jquery-1.11.1.min.js"></script>
+
+      <script src="js/vendor/bootstrap.min.js"></script>
+
+      <script src="js/main.js"></script>
+    </body>
+</html>
