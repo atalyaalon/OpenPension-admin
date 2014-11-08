@@ -1,5 +1,5 @@
-//var baseUrl = "http://admin.openpension.org.il/api/";
-var baseUrl = "http://localhost:4000/api/";
+var baseUrl = "http://admin.openpension.org.il/api/";
+//var baseUrl = "http://localhost:4000/api/";
 
 var quarter2String = {
     0: "ראשון",
@@ -13,8 +13,12 @@ var customizeMapping = {
         var self = ko.mapping.fromJS(options.data);
         self.fetch = function() {
             $.getJSON(baseUrl + "funds_quarters/await_vaildation", function(data) {
-                var wrappedData = { quarters: data };
+                var wrappedData = { quarters: data, validatedQuarters: self.validatedQuarters };
                 ko.mapping.fromJS(wrappedData, customizeMapping, self);
+                $.getJSON(baseUrl + "funds_quarters/validated", function(data) {
+                    var wrappedData = { quarters: self.quarters, validatedQuarters: data };
+                    ko.mapping.fromJS(wrappedData, customizeMapping, self);
+                });
             });
         };
 
@@ -52,7 +56,7 @@ var customizeMapping = {
 };
 
 
-var model = ko.mapping.fromJS({quarters: []}, customizeMapping);
+var model = ko.mapping.fromJS({quarters: [], validatedQuarters: []}, customizeMapping);
 
 // Load data
 model.fetch();

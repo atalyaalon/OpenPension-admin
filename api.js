@@ -100,6 +100,21 @@ router.route("/funds_quarters/await_vaildation")
         });
     });
 
+router.route("/funds_quarters/validated")
+    .get(noCache, function(req, res) {
+
+        db.connect(function(client, done) {
+            client.query(fundsQuartersBasicSelect + " AND status = 'validated'", function(err, result) {
+                done();
+
+                if(err) {
+                    return console.error('error running query', err);
+                }
+                res.json(result.rows);
+            });
+        });
+    });
+
 
 var countMissing = function(client, fundId, managing_body_heb, callback) {
     var addConstraints = "";
