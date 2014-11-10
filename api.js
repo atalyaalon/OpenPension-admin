@@ -170,7 +170,7 @@ router.route("/funds_quarters/missing/random")
                             res.json(data);
                         };
 
-                        if (req.query.user !== undefined) {
+                        if (req.query.user !== undefined && req.query.user !== "") {
                             client.query("SELECT COUNT(*) FROM admin_funds_quarters WHERE status != 'missing' AND user_name = '" + req.query.user + "'", function(err, result) {
                                 sendData(result === undefined ? 0 : result.rows[0].count);
                             });
