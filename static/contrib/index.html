@@ -40,15 +40,12 @@
               </div>
                 <!-- ko if: fundUrl() != "" -->
                 <a data-bind="attr: { href: fundUrl }" target="blank">
-                <!-- /ko -->
-                  <div class="form-group">
-                    <label class="col-xs-2 control-label">קרן/קופה</label>
-                    <div class="col-xs-10">
-                      <p class="form-control-static input-lg" data-bind="text: fund">הראל השתלמות שקלי</p>
-                    </div>
-                  </div>
-                <!-- ko if: fundUrl() != "" -->
+                    <div data-bind="template: { name: 'fund-name-template', data: $data }"></div>
                 </a>
+                <!-- /ko -->
+
+                <!-- ko if: fundUrl() == "" -->
+                    <div data-bind="template: { name: 'fund-name-template', data: $data }"></div>
                 <!-- /ko -->
               <div class="form-group">
                 <label class="col-xs-2 control-label">רבעון</label>
@@ -68,6 +65,15 @@
           </div>
         </div>
       </div> <!-- /container -->
+
+      <script type="text/html" id="fund-name-template">
+        <div class="form-group">
+            <label class="col-xs-2 control-label">קרן/קופה</label>
+            <div class="col-xs-10">
+                <p class="form-control-static input-lg" data-bind="text: fund">הראל השתלמות שקלי</p>
+            </div>
+        </div>
+      </script>
       <script src="js/vendor/jquery-1.11.1.min.js"></script>
 
       <script src="js/vendor/bootstrap.min.js"></script>
