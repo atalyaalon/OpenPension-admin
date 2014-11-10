@@ -10,7 +10,10 @@ var quarter2String = {
 var Model = function() {
     var self = this;
 
-    self.name = ko.observable("");
+    self.status = ko.observable("");
+
+    var userNameCookieVal = Cookies.get("user_name");
+    self.name = ko.observable(userNameCookieVal !== undefined ? userNameCookieVal : "");
 
     self.quarterId = ko.observable(-1);
     self.managingBody = ko.observable("");
@@ -21,16 +24,24 @@ var Model = function() {
 
     self.url = ko.observable("");
 
+    self.name.subscribe(function(newValue) {
+        Cookies.set('user_name', newValue);
+    });
+
     self.getNext= function() {
         self.url("");
-        $.getJSON(baseUrl + "funds_quarters/missing/random?managing_body_heb=" + self.managingBody() + "&fund_id=" + self.fund_id(), function(data) {
+        $.getJSON(baseUrl + "funds_quarters/missing/random?managing_body_heb=" + self.managingBody() + "&fund_id=" + self.fund_id() + "&user=" + self.name(), function(data) {
             console.log(data);
+
+            var status = "בנתיים אספת " + data.userCount + " קבצי קופות, נותרו עוד " + data.count + " קבצי קופות" + (self.managingBody() !== "" ? (" עבור " + self.managingBody()) : "") + ".";
             self.quarterId(data.id);
             self.managingBody(data.managing_body_heb);
             self.fund(data.fund_name);
             self.fund_id(data.fund_id);
             self.fundUrl(data.fund_url);
             self.quarter(quarter2String[data.quarter] + " " + data.year);
+
+            self.status(status);
         });
     };
 

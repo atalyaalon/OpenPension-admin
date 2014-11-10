@@ -156,14 +156,28 @@ router.route("/funds_quarters/missing/random")
                     res.json({});
                 } else {
                     client.query(getMissingQuartersSQL(addConstraints, count), function(err, result) {
-                        done();
+                        var sendData = function(userCount) {
+                            done();
 
-                        if(err) {
-                            return console.error('error running query', err);
+                            if(err) {
+                                return console.error('error running query', err);
+                            }
+
+                            console.log("Returning random quarter: " + result.rows[0].id + "(managing_body_heb=" + req.query.managing_body_heb + ", fund_id=" + req.query.fund_id + ")");
+                            var data = result.rows[0];
+                            data.count = count;
+                            data.userCount = userCount;
+                            res.json(data);
+                        };
+
+                        if (req.query.user !== undefined) {
+                            client.query("SELECT COUNT(*) FROM admin_funds_quarters WHERE status != 'missing' AND user_name = '" + req.query.user + "'", function(err, result) {
+                                sendData(result === undefined ? 0 : result.rows[0].count);
+                            });
+                        } else {
+                            sendData(0);
                         }
 
-                        console.log("Returning random quarter: " + result.rows[0].id + "(managing_body_heb=" + req.query.managing_body_heb + ", fund_id=" + req.query.fund_id + ")");
-                        res.json(result.rows[0]);
                     });
                 }
             });
